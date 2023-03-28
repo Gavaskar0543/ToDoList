@@ -1,12 +1,28 @@
-let tasks = [];
-let addNewTask = document.getElementById('add-task');
-let taskCounter = document.getElementById('taskCounter');
-let taskList = document.getElementById('List');
-
+const tasks = [];
+const addNewTask = document.getElementById('add-task');
+const taskCounter = document.getElementById('taskCounter');
+const taskList = document.getElementById('List');
+//adding to dom
+function addTaskToDom(task){
+//createing a li element
+const li  = document.createElement('li');
+li.innerHTML=`
+    <input type="checkbox" id="${task.id}" ${task.done ? 'checked' : ''} class="custom-checkbox">
+    <label for="${task.id}">${task.text}</label>
+    <img src="#" class="deleted" data-id="${task.id}" alt="img">
+`
+taskList.append(li);
+}
+//rndering
 function renderList(taskId){
+   taskList.innerHTML = '';
+    for(let i = 0; i<tasks.length; i++){
+        addTaskToDom(tasks[i]);
+    }
+    taskCounter.innerHTML = tasks.length;
 
 }
-function markTaskComplete(taskId){
+function markTaskComeleted(taskId){
     const task = tasks.filter(function(task){
         return task.id == taskId;
     })
@@ -19,7 +35,7 @@ function markTaskComplete(taskId){
     showNotification('could not toggled the task');
 }
 
-function deletTask(taskId){
+function deletedask(taskId){
     const newTasks = tasks.filter(function(task){
         return task.id != taskId;
     })
@@ -46,7 +62,7 @@ function showNotification(text){
 //handing key press
 function handeInputKeypress(event){
     if(event.key == 'Enter'){
-        let text = event.target.value;
+        const text = event.target.value;
         console.log('text',text);
         if(!text){
             showNotification('Task text cannot empty');
