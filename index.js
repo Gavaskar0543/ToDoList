@@ -1,4 +1,4 @@
-const tasks = [];
+let tasks = [];
 const addNewTask = document.getElementById('add-task');
 const taskCounter = document.getElementById('taskCounter');
 const taskList = document.getElementById('List');
@@ -6,11 +6,13 @@ const taskList = document.getElementById('List');
 function addTaskToDom(task){
 //createing a li element
 const li  = document.createElement('li');
+li.classList.add('list-group-item');
 li.innerHTML=`
+<div class="d-flex justify-content-between">
+
     <input type="checkbox" id="${task.id}" ${task.done ? 'checked' : ''} class="custom-checkbox">
     <label for="${task.id}">${task.text}</label>
-    <img src="#" class="deleted" data-id="${task.id}" alt="img">
-`
+    <img src="trash.svg" class="delete" id="${task.id}" data-id="${task.id}" height="20px" width="30px" alt="img"></div>`
 taskList.append(li);
 }
 //rndering
@@ -25,18 +27,20 @@ function renderList(taskId){
 function markTaskComeleted(taskId){
     const task = tasks.filter(function(task){
         return task.id == taskId;
-    })
+    });
     if(task.length > 0){
         const currentTask = task[0];
         currentTask.done = !currentTask.done;
         renderList();
         showNotification('Task toggled successfully');
+        return;
     }
+   
     showNotification('could not toggled the task');
 }
 
-function deletedask(taskId){
-    const newTasks = tasks.filter(function(task){
+function deletetask(taskId){
+    let newTasks = tasks.filter(function(task){
         return task.id != taskId;
     })
     tasks = newTasks;
@@ -79,5 +83,27 @@ function handeInputKeypress(event){
     
    
 }
+function handelEvents(event){
+    const target = event.target;
+    console.log(target.className);
+    if(target.className == 'delete'){
+        console.log("working...");
+     const taskId = target.id;
+     console.log(taskId);
+     deletetask(taskId);
+     return;
+    }
+    else if(target.className =='custom-checkbox'){
+        console.log("working..");
+        const taskId = target.id;
+        markTaskComeleted(taskId);
+        return;
+    }
+    
+}
 //addevent
+function initializeApp(){
 addNewTask.addEventListener('keyup',handeInputKeypress);
+document.addEventListener('click',handelEvents);
+}
+initializeApp();
