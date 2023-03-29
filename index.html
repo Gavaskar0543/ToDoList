@@ -12,11 +12,12 @@
 </head>
 <body>
     <div class="container d-flex-column">
-    <h4>Todo List</h4>
+    <h4 style="text-align:center;">Todo List</h4>
     <div id="containers">
         <input type="text" id="add-task" placeholder="press ENTER to add task">
         <span id="noOfTask">total tasks:<span id="taskCounter">0</span></span>
         <ul class="list-group"  id="List"type="none">
+
 
         </ul>
     </div>
@@ -25,5 +26,8 @@
 
 
     <script src="index.js"></script>
+    <script type="text/javascript">
+       todoListApp.initialize();
+    </script>
 </body>
 </html>

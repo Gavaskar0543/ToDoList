@@ -1,7 +1,36 @@
+var todoListApp = (function() {
 let tasks = [];
 const addNewTask = document.getElementById('add-task');
 const taskCounter = document.getElementById('taskCounter');
 const taskList = document.getElementById('List');
+
+
+//Api call
+async function fetchTodoList(){
+    // fetch('https://jsonplaceholder.typicode.com/todos')
+    // .then(function(response){
+    //     console.log(response);
+    //     return response.json();
+    // })
+    // .then(function(data){
+    //     tasks = data.slice(0,10);
+    //     renderList();
+    // })
+  
+   try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+    const data = await response.json();
+        tasks = data.slice(0,10);
+        renderList();
+   } catch (error) {
+    console.log(error,'error');
+   }
+   
+
+}
+
+
+
 //adding to dom
 function addTaskToDom(task){
 //createing a li element
@@ -10,8 +39,8 @@ li.classList.add('list-group-item');
 li.innerHTML=`
 <div class="d-flex justify-content-between">
 
-    <input type="checkbox" id="${task.id}" ${task.done ? 'checked' : ''} class="custom-checkbox">
-    <label for="${task.id}">${task.text}</label>
+    <input type="checkbox" id="${task.id}" ${task.completed ? 'checked' : ''} class="custom-checkbox">
+    <label for="${task.id}">${task.title}</label>
     <img src="trash.svg" class="delete" id="${task.id}" data-id="${task.id}" height="20px" width="30px" alt="img"></div>`
 taskList.append(li);
 }
@@ -26,11 +55,11 @@ function renderList(taskId){
 }
 function markTaskComeleted(taskId){
     const task = tasks.filter(function(task){
-        return task.id == taskId;
+        return task.id == Number(taskId);
     });
     if(task.length > 0){
         const currentTask = task[0];
-        currentTask.done = !currentTask.done;
+        currentTask.completed = !currentTask.completed;
         renderList();
         showNotification('Task toggled successfully');
         return;
@@ -41,7 +70,7 @@ function markTaskComeleted(taskId){
 
 function deletetask(taskId){
     let newTasks = tasks.filter(function(task){
-        return task.id != taskId;
+        return task.id != Number(taskId);
     })
     tasks = newTasks;
     renderList();
@@ -73,9 +102,9 @@ function handeInputKeypress(event){
             return;
         }
         const task = {
-            text,
-            id : Date.now().toString(),
-            done:false
+            title : text,
+            id : Date.now(),
+            completed:false
         }
         event.target.value = '';
         addTask(task);
@@ -103,7 +132,11 @@ function handelEvents(event){
 }
 //addevent
 function initializeApp(){
+    fetchTodoList();
 addNewTask.addEventListener('keyup',handeInputKeypress);
 document.addEventListener('click',handelEvents);
 }
-initializeApp();
+return{
+    initialize : initializeApp,
+}
+})();
