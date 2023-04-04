@@ -1,33 +1,126 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo-list</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/d191a987e3.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!----======== CSS ======== -->
+  <link rel="stylesheet" href="style.css">
+
+
+  <!----===== Boxicons CSS ===== -->
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <title>Todo-list</title>
 </head>
+
 <body>
-    <div class="container d-flex-column">
-    <h4 style="text-align:center;">Todo List</h4>
-    <div id="containers">
-        <input type="text" id="add-task" placeholder="press ENTER to add task">
-        <span id="noOfTask">total tasks:<span id="taskCounter">0</span></span>
-        <ul class="list-group"  id="List"type="none">
+  <nav class="sidebar close">
+    <header>
+      <div class="image-text">
+        <span class="image">
+          <!--<img src="logo.png" alt="">-->
+        </span>
+
+        <div class="text logo-text">
+          <span class="name">Brand of</span>
+          <span class="profession">Coding Ninjas</span>
+        </div>
+      </div>
+
+      <i class='bx bx-chevron-right toggle'></i>
+    </header>
+
+    <div class="menu-bar">
+      <div class="menu">
+
+        <li class="search-box">
+          <i class='bx bx-search icon'></i>
+          <input type="text" placeholder="Search...">
+        </li>
+
+        <ul class="menu-links">
+          <li class="nav-link">
+            <a href="#">
+              <i class='bx bx-home-alt icon'></i>
+              <span class="text nav-text">Dashboard</span>
 
 
-        </ul>
+          </li>
+
+          <li class="mode">
+            <div class="sun-moon">
+              <i class='bx bx-moon icon moon'></i>
+              <i class='bx bx-sun icon sun'></i>
+            </div>
+            <span class="mode-text text">Dark mode</span>
+
+            <div class="toggle-switch">
+              <span class="switch"></span>
+            </div>
+          </li>
+      </div>
+      
     </div>
-</div>
+<div class="image-text" style="margin-top:-18%;">
+        <div class="text logo-text">
+          <span class="name"> Developed By
+          </span>
+          <span class="profession">Gavaskar</span>
+        </div>
+      </div>
+  </nav>
+
+  <section class="home">
+    <div style="margin-left:-4%;" class="text">To-Do-List Dashboard </div>
+    <div class="container d-flex-column">
+
+      <div id="containers">
+        <input outline="none" type="text" id="add-task" placeholder="press ENTER to add task">
+        <span id="noOfTask">
+          <i class='bx bx-task' style="height: 20;width:15px;"></i>
+          <span id="taskCounter">0</span></span>
+        <ul class="list-group" type="none" id="List">
 
 
+  </section>
+  </div>
+  </div>
+  </section>
+  <script>
+    const body = document.querySelector('body'),
+      sidebar = body.querySelector('nav'),
+      toggle = body.querySelector(".toggle"),
+      searchBtn = body.querySelector(".search-box"),
+      modeSwitch = body.querySelector(".toggle-switch"),
+      modeText = body.querySelector(".mode-text");
 
-    <script src="index.js"></script>
-    <script type="text/javascript">
-       todoListApp.initialize();
-    </script>
+
+    toggle.addEventListener("click", () => {
+      sidebar.classList.toggle("close");
+    })
+
+    searchBtn.addEventListener("click", () => {
+      sidebar.classList.remove("close");
+    })
+
+    modeSwitch.addEventListener("click", () => {
+      body.classList.toggle("dark");
+
+      if (body.classList.contains("dark")) {
+        modeText.innerText = "Light mode";
+      } else {
+        modeText.innerText = "Dark mode";
+
+      }
+    });
+  </script>
+  <script src="index.js"></script>
+  <script type="text/javascript">
+    todoListApp.initialize();
+  </script>
 </body>
+
 </html>

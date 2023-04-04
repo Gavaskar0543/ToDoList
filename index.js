@@ -6,28 +6,28 @@ const taskList = document.getElementById('List');
 
 
 //Api call
-async function fetchTodoList(){
-    // fetch('https://jsonplaceholder.typicode.com/todos')
-    // .then(function(response){
-    //     console.log(response);
-    //     return response.json();
-    // })
-    // .then(function(data){
-    //     tasks = data.slice(0,10);
-    //     renderList();
-    // })
+// async function fetchTodoList(){
+//     // fetch('https://jsonplaceholder.typicode.com/todos')
+//     // .then(function(response){
+//     //     console.log(response);
+//     //     return response.json();
+//     // })
+//     // .then(function(data){
+//     //     tasks = data.slice(0,10);
+//     //     renderList();
+//     // })
   
-   try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/todos');
-    const data = await response.json();
-        tasks = data.slice(0,10);
-        renderList();
-   } catch (error) {
-    console.log(error,'error');
-   }
+//    try {
+//     const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+//     const data = await response.json();
+//         tasks = data.slice(0,10);
+//         renderList();
+//    } catch (error) {
+//     console.log(error,'error');
+//    }
    
 
-}
+// }
 
 
 
@@ -132,7 +132,7 @@ function handelEvents(event){
 }
 //addevent
 function initializeApp(){
-    fetchTodoList();
+    
 addNewTask.addEventListener('keyup',handeInputKeypress);
 document.addEventListener('click',handelEvents);
 }
